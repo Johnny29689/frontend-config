@@ -4,7 +4,24 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 // 📤 Upload su Supabase
 async function uploadToSupabase(file, fileName) {
-  const res = await fetch(`${SUPABASE_URL}/storage/v1/object/modelli/${fileName}`, {
+  const response = await fetch(`${SUPABASE_URL}/storage/v1/object/upload/public/modelli/${fileName}`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': file.type,
+      'x-upsert': 'true'
+    },
+    body: file
+  });
+
+  if (!response.ok) {
+    console.error('Errore upload:', await response.text());
+    return null;
+  }
+
+  return `${SUPABASE_URL}/storage/v1/object/public/modelli/${fileName}`;
+}
+
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${SUPABASE_KEY}`,
