@@ -2,9 +2,9 @@
 const SUPABASE_URL = 'https://nczmzwyxckpnnjkicbau.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jem16d3l4Y2twbm5qa2ljYmF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMwMjAwMjYsImV4cCI6MjA2ODU5NjAyNn0.Bs95Ri_oXXxZBplBRSGrQpze1IOy-dTGG33L3JzhznU';
 
-// 📤 Upload su Supabase
+// 📤 Funzione corretta di upload
 async function uploadToSupabase(file, fileName) {
-  const response = await fetch(`${SUPABASE_URL}/storage/v1/object/upload/public/modelli/${fileName}`, {
+  const response = await fetch(`${SUPABASE_URL}/storage/v1/object/modelli/${fileName}`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${SUPABASE_KEY}`,
@@ -29,33 +29,25 @@ const generateButton = document.getElementById("generate-btn");
 const loadingIndicator = document.getElementById("loading-indicator");
 
 function checkInputs() {
-  if (frontInput.files.length > 0 && sideInput.files.length > 0) {
-    generateButton.disabled = false;
-  } else {
-    generateButton.disabled = true;
-  }
+  generateButton.disabled = !(frontInput.files.length && sideInput.files.length);
 }
 
-frontInput.addEventListener("change", function () {
+frontInput.addEventListener("change", () => {
   const preview = document.getElementById("preview-front");
-  const file = this.files[0];
-  if (file) {
-    preview.src = URL.createObjectURL(file);
-  }
+  const file = frontInput.files[0];
+  if (file) preview.src = URL.createObjectURL(file);
   checkInputs();
 });
 
-sideInput.addEventListener("change", function () {
+sideInput.addEventListener("change", () => {
   const preview = document.getElementById("preview-side");
-  const file = this.files[0];
-  if (file) {
-    preview.src = URL.createObjectURL(file);
-  }
+  const file = sideInput.files[0];
+  if (file) preview.src = URL.createObjectURL(file);
   checkInputs();
 });
 
 // 🧠 GENERA MODELLO (simulato + upload immagini)
-generateButton.addEventListener("click", async function () {
+generateButton.addEventListener("click", async () => {
   const frontFile = frontInput.files[0];
   const sideFile = sideInput.files[0];
 
@@ -66,9 +58,12 @@ generateButton.addEventListener("click", async function () {
 
   loadingIndicator.style.display = "block";
 
-  // 📤 Carica su Supabase
-  const fronteUrl = await uploadToSupabase(frontFile, `fronte-${Date.now()}.jpg`);
-  const lateraleUrl = await uploadToSupabase(sideFile, `laterale-${Date.now()}.jpg`);
+  // 📤 Upload immagini
+  const frontName = `fronte-${Date.now()}.jpg`;
+  const sideName = `laterale-${Date.now()}.jpg`;
+
+  const fronteUrl = await uploadToSupabase(frontFile, frontName);
+  const lateraleUrl = await uploadToSupabase(sideFile, sideName);
 
   if (!fronteUrl || !lateraleUrl) {
     alert("Errore durante il caricamento delle immagini!");
@@ -76,7 +71,7 @@ generateButton.addEventListener("click", async function () {
     return;
   }
 
-  // ✅ Simula STL generato
+  // ✅ Simulazione STL
   const preview = document.getElementById("preview-3d");
   setTimeout(() => {
     loadingIndicator.style.display = "none";
