@@ -22,23 +22,6 @@ async function uploadToSupabase(file, fileName) {
   return `${SUPABASE_URL}/storage/v1/object/public/modelli/${fileName}`;
 }
 
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${SUPABASE_KEY}`,
-      'Content-Type': file.type,
-      'x-upsert': 'true'
-    },
-    body: file
-  });
-
-  if (!res.ok) {
-    console.error('Errore upload:', res.statusText);
-    return null;
-  }
-
-  return `${SUPABASE_URL}/storage/v1/object/public/modelli/${fileName}`;
-}
-
 // 📁 Input e preview
 const frontInput = document.getElementById("input-front");
 const sideInput = document.getElementById("input-side");
