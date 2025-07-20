@@ -4,42 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Configuratore 3D</title>
-  <link href="style.css" rel="stylesheet" />
-  <script defer src="script.js"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="config-wrapper">
-    <h1>Carica le tue foto</h1>
+  <div class="container">
+    <h1>Genera il tuo modello 3D</h1>
+
     <div class="upload-section">
-      <div class="input-wrapper">
-        <label for="fronte">
-          <img src="assets/frontale.png" alt="Fronte" width="100" />
-          <span>Fronte</span>
-        </label>
-        <input type="file" id="fronte" accept="image/*" />
-      </div>
-      <div class="input-wrapper">
-        <label for="laterale">
-          <img src="assets/laterale.png" alt="Laterale" width="100" />
-          <span>Laterale</span>
-        </label>
-        <input type="file" id="laterale" accept="image/*" />
-      </div>
+      <img id="preview-front" src="assets/frontale.png" alt="Fronte" />
+      <input type="file" id="input-front" accept="image/*" />
     </div>
 
-    <div class="dropzone" id="dropzone">
-      Trascina o clicca per caricare
+    <div class="upload-section">
+      <img id="preview-side" src="assets/laterale.png" alt="Laterale" />
+      <input type="file" id="input-side" accept="image/*" />
     </div>
 
-    <button id="genera" class="generate-btn">
-      <span class="loader hidden"></span>
-      Genera modello 3D
-    </button>
+    <button id="generate-btn" disabled>Genera</button>
 
-    <div class="preview-section" id="anteprima" style="display:none;">
-      <h2>Anteprima STL</h2>
-      <canvas id="previewCanvas" width="300" height="300"></canvas>
-    </div>
+    <div id="loading-indicator">⏳ Generazione in corso...</div>
+    <div id="preview-3d"></div>
   </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

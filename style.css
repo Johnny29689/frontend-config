@@ -1,87 +1,70 @@
+
 body {
-  font-family: 'Arial', sans-serif;
   background-color: #ffffff;
-  margin: 0;
-  padding: 0;
+  font-family: 'Helvetica Neue', sans-serif;
+  color: #002366;
   display: flex;
   justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
 }
 
-.config-wrapper {
-  width: 90%;
-  max-width: 600px;
-  padding: 20px;
+.container {
+  width: 100%;
+  max-width: 500px;
   text-align: center;
-  color: #1a1a40;
+  padding: 20px;
+  border: 2px solid #D4AF37;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-h1, h2 {
-  color: #1a1a40;
+h1 {
+  margin-bottom: 20px;
+  color: #002366;
 }
 
 .upload-section {
-  display: flex;
-  justify-content: space-between;
-  margin: 20px 0;
+  margin-bottom: 20px;
 }
 
-.input-wrapper {
-  width: 45%;
+.upload-section img {
+  width: 100px;
+  margin-bottom: 8px;
+  border: 2px solid #D4AF37;
+  border-radius: 8px;
 }
 
-.input-wrapper input {
-  display: none;
+input[type="file"] {
+  display: block;
+  margin: 0 auto;
+  margin-top: 8px;
 }
 
-.input-wrapper img {
-  width: 100%;
-  max-height: 120px;
-  object-fit: contain;
-  background: #f0f0f0;
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.dropzone {
-  border: 2px dashed #1a1a40;
-  padding: 20px;
-  margin: 20px 0;
-  cursor: pointer;
-}
-
-.generate-btn {
-  background-color: #1a1a40;
-  color: #d4af37;
+button {
+  background-color: #002366;
+  color: #ffffff;
   border: none;
-  padding: 15px 25px;
+  padding: 12px 20px;
   font-size: 16px;
+  border-radius: 8px;
   cursor: pointer;
-  border-radius: 10px;
-  margin-top: 10px;
-  position: relative;
+  transition: background-color 0.3s ease;
 }
 
-.loader {
-  border: 3px solid #f3f3f3;
-  border-top: 3px solid #d4af37;
-  border-radius: 50%;
-  width: 16px;
-  height: 16px;
-  animation: spin 1s linear infinite;
-  display: inline-block;
-  margin-right: 10px;
-  vertical-align: middle;
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
-.loader.hidden {
+#loading-indicator {
   display: none;
+  margin-top: 20px;
+  color: #D4AF37;
+  font-weight: bold;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.preview-section {
-  margin-top: 30px;
+#preview-3d {
+  margin-top: 20px;
 }
